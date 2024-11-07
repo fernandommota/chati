@@ -1,0 +1,25 @@
+version: '3'
+services:
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    volumes:
+      - ./chroma_index_data:/chroma/.chroma/index
+    ports:
+      - 8000:8000
+
+  chati_service:
+    image: chati
+    volumes: 
+      - ./:/home/ubuntu/dev
+      #- /home/fernando/dev:/home/ubuntu/dev
+    tty: true
+    stdin_open: true 
+    network_mode: "host"
+    deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: all # alternatively, use `count: all` for all GPUs
+                capabilities: [gpu]
+              
