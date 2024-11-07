@@ -1,8 +1,9 @@
 
 
+
 from get_documents import read_csv_data
 
-from functions import get_chroma_client, generate_embeddings_and_persist_chroma_db
+from functions import get_chroma_client, generate_embeddings_and_persist_chroma_db, run_mini_check
 
 #ids, documents, metadatas = read_csv_data()
 
@@ -27,9 +28,11 @@ def query_vector_database(query_texts):
     for index, result in enumerate(results['ids']):
         print(result)
         print(results['distances'][index])
-        #for document in results['documents']:
-        #    print(document)
+    
+    for index, result in enumerate(results['documents']):
+        print(index)
+        print('documents', results['documents'][index])
+        run_mini_check(query_texts[0], results['documents'][index])
         
-query_texts = ["Hexal Australia Pty Ltd v Roche Therapeutics Inc (2005) 66 IPR 325, the likelihood of irreparable harm was regarded by Stone J as, indeed, a separate element that had to be established by an applicant for an interlocutory injunction."]
+query_texts = ["Who is Alpine Hardwood (Aust)?"]
 query_vector_database(query_texts)
-
